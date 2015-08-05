@@ -23,3 +23,15 @@ toCamelCase string = if countOfElem ' ' string == 1 && length(words string) >= 2
 					 toUpper((dropWhile (/=' ') string)!!1) : tail(tail (map toLower (dropWhile (/=' ') string)))
 					 else
 					 "I'm not so smart yet"
+{-
+Prime numbers
+-}
+primes :: [Integer]
+primes = sieve [2..]
+  where
+    sieve (p:xs) = p : sieve [x|x <- xs, x `mod` p > 0]
+
+{-
+nth Prime number
+-}
+nthPrime n = primes !!(n-1)
