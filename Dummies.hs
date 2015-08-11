@@ -8,17 +8,23 @@ import Data.Char (toLower,toUpper)
 import Data.List (takeWhile, dropWhile)
 
 -- Factorial of a number
+factorial :: Integer -> Integer
 factorial n = product [1..n]
 
 -- Fibonacci sequence
-fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+fibonacci :: [Integer]
+fibonacci = 0 : 1 : zipWith (+) fibonacci (tail fibonacci)
 
 -- Fibonacci sequence (up to n)
-fibs_up_to_n n = take n (fibs)
+fibonacci_up_to_n :: Int -> [Integer]
+fibonacci_up_to_n n = take n (fibonacci)
+
 --To upper of a string
+toUpperString :: String -> String
 toUpperString string = map toUpper string
 
 -- Count the number of occurrences of a specific character in a string
+countOfElem :: Eq a => a -> [a] -> Int
 countOfElem elem list = length $ filter (\x -> x == elem) list
 
 {-  
@@ -38,11 +44,14 @@ primes = sieve [2..]
     sieve (p:xs) = p : sieve [x|x <- xs, x `mod` p > 0]
 
 -- nth Prime number
+nthPrime :: Int -> Integer
 nthPrime n = 
          if n <= 1 then error("Invalid input parameter. (Should be greater than zero.)")
          else primes !!(n-1)
 
 -- First n primes
+first_nthPrimes :: Int -> [Integer]
 first_nthPrimes n =
     if n > 2000 then error("This would take far too long...")
     else take n (primes)
+    
