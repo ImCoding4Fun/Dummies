@@ -1,11 +1,25 @@
 {-
     Author: A.F.G.
     Content: Haskell first dummies. Training purpose only. To be continued.
-    Last update: 08-05-2015.
+    Last update: 08-12-2015.
 -}
 
 import Data.Char (toLower,toUpper)
 import Data.List (takeWhile, dropWhile)
+
+-- Hello world
+hello_world :: IO ()
+hello_world = putStrLn "Hello, World!"
+
+--Simple IO program
+input_user_info :: IO String
+input_user_info = do
+    putStrLn "Name"
+    name <- getLine
+    putStrLn "Surname"
+    surname <- getLine
+    return ("Name: "++ name ++ "    Surname: " ++ surname) 
+
 
 -- Factorial of a number
 factorial :: Integer -> Integer
