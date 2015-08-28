@@ -62,6 +62,10 @@ combinations 0 _ = [[]]
 combinations n xs = [ xs !! i : x | i <- [0..(length xs)-1]
                                   , x <- combinations (n-1) $ drop (i+1) xs ]
 
+{-
+  $ = avoids curved brackets.
+  E.g. sum $ filter (odd) [1..10] is equal to sum(filter (odd) [1..10])
+-}
 occurrences :: Eq a => a -> [a] -> Int
 occurrences element list = length $ filter (\x -> x == element) list
 
@@ -87,6 +91,8 @@ capitalize = transformFst toUpper
    First, split it by \"_\" character.
    Then apply 'capitalize' on each subpart.
    Finally, concat.
+
+   var' = a new variable, related to the original var in the way expresses in the right hand of the expression
 -}
 toCamelCase :: String -> String
 toCamelCase = concat . map' . split (== '_')
@@ -107,3 +113,18 @@ split predicate seqce = case dropWhile predicate seqce of
     seqce' -> w : split predicate seqce''
           where
             (w, seqce'') = break predicate seqce'
+
+{-
+  . = function combining
+  : => 1:[2..10] = [1..10]
+-}
+solveRPN :: String -> Float
+solveRPN = head . foldl foldingFunction [] . words
+    where   foldingFunction (x:y:ys) "*" = (x * y):ys
+            foldingFunction (x:y:ys) "+" = (x + y):ys
+            foldingFunction (x:y:ys) "-" = (y - x):ys
+            foldingFunction (x:y:ys) "/" = (y / x):ys
+            foldingFunction (x:y:ys) "^" = (y ** x):ys
+            foldingFunction (x:xs) "ln" = log x:xs
+            foldingFunction xs "sum" = [sum xs]
+            foldingFunction xs numberString = read numberString:xs
