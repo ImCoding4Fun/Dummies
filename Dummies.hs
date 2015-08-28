@@ -1,138 +1,109 @@
 {-
     Author: A.F.G.
-    Content: Haskell first dummies. Training purpose only. To be continued.
-    Last update: 08-12-2015.
+    Content: Haskell first dummies.
+    Training purpose only. To be continued.
+    When required, credits specified in comments.
+    Last update: 08-28-2015.
 -}
 
-import Data.Char (toLower,toUpper)
-import Data.List (takeWhile, dropWhile,tails)
-{-
+module Dummies
+(
+    helloWorld,
+    tableOf,
+    anotherTableOf,
+    yetAnotherTableOf,
+    factorial,
+    anotherFactorial,
+    quicksort,
+    chain,
+    combinations,
+    occurrences,
+    split,
+    toCamelCase,
+    toUpper,
+    transformFst
+)
+where
+import Data.Char (toUpper)
 
-2^3
-8
+helloWorld :: IO ()
+helloWorld = putStrLn "Hello, World!"
 
-flip (^) 2 3
-9
+tableOf :: Int -> [Int]
+tableOf n = map (*n) [1..10]
 
-3^2
-9
+anotherTableOf :: Int -> [Int]
+anotherTableOf n = map (\x -> x * n) [1..10]
 
-flip (^) 3 2
-8
+yetAnotherTableOf :: Int -> [Int]
+yetAnotherTableOf n = zipWith (*) [1..10] (repeat n)
 
-[ x |x<- [1..100], odd x]
-
-filter (odd) [1..100]
-filter (\x -> x `mod` 2 == 0) [1..10]
-
-map (*2) [1..10]
-
-map (\x -> if odd x then x*2 else x*3) [1..10]
-
-length $ filter (\ x -> even x && x > 10) [1..20]
-
--}
-
--- Hello world
-hello_world :: IO ()
-hello_world = putStrLn "Hello, World!"
-
---Back to the basics! Tables
---table :: Int -> Integer
-table n = zipWith (*) [1..10] (repeat n)
-
---Simple IO program
-input_user_info :: IO String
-input_user_info = do
-    putStrLn "Name"
-    name <- getLine
-    putStrLn "Surname"
-    surname <- getLine
-    return ("Name: "++ name ++ "    Surname: " ++ surname) 
-
-
--- Factorial of a number
 factorial :: Integer -> Integer
 factorial n = product [1..n]
 
--- Funnier factorial
-fact :: (Num b, Enum b) => b -> b
-fact n = foldl (\acc x -> acc * x) 1 [2..n]
+anotherFactorial :: Integer -> Integer
+anotherFactorial n = foldl (\acc x -> acc * x) 1 [2..n]
 
--- Fibonacci sequence
-fibonacci :: [Integer]
-fibonacci = 0 : 1 : zipWith (+) fibonacci (tail fibonacci)
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) =
+    let smallerSorted = quicksort (filter (<=x) xs)
+        biggerSorted = quicksort (filter (>x) xs)
+    in  smallerSorted ++ [x] ++ biggerSorted
 
--- Fibonacci sequence (up to n)
-fibonacci_up_to_n :: Int -> [Integer]
-fibonacci_up_to_n n = take n (fibonacci)
+chain :: (Integral a) => a -> [a]
+chain 1 = [1]
+chain n
+    | even n =  n:chain (n `div` 2)
+    | odd n  =  n:chain (n*3 + 1)
 
---To upper of a string
-toUpperString :: String -> String
-toUpperString string = map toUpper string
-
--- Count the number of occurrences of a specific character in a string
-countOfElem :: Eq a => a -> [a] -> Int
-countOfElem elem list = length $ filter (\x -> x == elem) list
-
-{-  
-Input: A single string or two words separated by a single space (otherwise it does not work...)
-Returns a camel cased string 
-I know this sucks; see here https://gist.github.com/ruthenium/3715696 how it should be written 
--}
-toCamelCase string = if countOfElem ' ' string == 1 && length(words string) >= 2 then
-					 toLower(head string) : tail (map toLower (takeWhile (/=' ') string)) ++ 
-					 toUpper((dropWhile (/=' ') string)!!1) : tail(tail (map toLower (dropWhile (/=' ') string)))
-					 else
-					 "I'm not so smart yet"
--- Prime numbers
-primes :: [Integer]
-primes = sieve [2..]
-  where
-    sieve (p:xs) = p : sieve [x|x <- xs, x `mod` p > 0]
-
--- nth Prime number
-nthPrime :: Int -> Integer
-nthPrime n = 
-         if n <= 1 then error("Invalid input parameter. (Should be greater than zero.)")
-         else primes !!(n-1)
-
--- First n primes
-first_nthPrimes :: Int -> [Integer]
-first_nthPrimes n =
-    if n > 2000 then error("This would take far too long...")
-    else take n (primes)
-    
---List of all the powers of n where the result is less than m 
-powsOf_N_UpTo_M n m = takeWhile (< m ) $ map (^n) [1..]
-
-{-
-Quicksort
--}
-quicksort :: (Ord a) => [a] -> [a]    
-quicksort [] = []    
-quicksort (x:xs) =     
-    let smallerSorted = quicksort (filter (<=x) xs)  
-        biggerSorted = quicksort (filter (>x) xs)   
-    in  smallerSorted ++ [x] ++ biggerSorted  
-    
-    
-chain :: (Integral a) => a -> [a]  
-chain 1 = [1]  
-chain n  
-    | even n =  n:chain (n `div` 2)  
-    | odd n  =  n:chain (n*3 + 1) 
-    
-{-
-map (negate . sum . tail) [[1..5],[3..6],[1..7]]  
-
-[ (replicate 4) x | x<- [1..10] ]
--}
-
-{-
- Combinations
--}
 combinations :: Int -> [a] -> [[a]]
 combinations 0 _ = [[]]
-combinations n xs = [ xs !! i : x | i <- [0..(length xs)-1] 
+combinations n xs = [ xs !! i : x | i <- [0..(length xs)-1]
                                   , x <- combinations (n-1) $ drop (i+1) xs ]
+
+occurrences :: Eq a => a -> [a] -> Int
+occurrences element list = length $ filter (\x -> x == element) list
+
+{-|
+   Credits: https://gist.github.com/ruthenium
+   Transform first letter of 'String' using the function given.
+   Will not work on 'Data.Text'.
+-}
+transformFst :: (Char -> Char) -> String -> String
+transformFst _ [] = []
+transformFst f (x:xs) = (f x):xs
+
+{-|
+   Credits: https://gist.github.com/ruthenium
+   Make 'String' begin with a capital letter using 'toUpper' transformation.
+-}
+capitalize :: String -> String
+capitalize = transformFst toUpper
+
+{-|
+  Credits: https://gist.github.com/ruthenium
+   Convert a 'String' to CamelCase.
+   First, split it by \"_\" character.
+   Then apply 'capitalize' on each subpart.
+   Finally, concat.
+-}
+toCamelCase :: String -> String
+toCamelCase = concat . map' . split (== '_')
+  where
+    map' = map capitalize
+
+{-|
+   Credits: https://gist.github.com/ruthenium
+   Split a 'String' into list of Strings.
+   It is just a Prelude function 'words', but it accpets a specified
+   predicate to determine delimiter.
+   NOTE: It won't work on 'Data.Text'.
+   Usage: split (==';') "xx;yy;zz" or split (\x-> x ==';') "xx;yy;zz"
+-}
+split :: (Char -> Bool) -> String -> [String]
+split predicate seqce = case dropWhile predicate seqce of
+    "" -> []
+    seqce' -> w : split predicate seqce''
+          where
+            (w, seqce'') = break predicate seqce'
