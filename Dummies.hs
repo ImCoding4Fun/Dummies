@@ -3,12 +3,15 @@
     Content: Haskell first dummies.
     Training purpose only. To be continued.
     When required, credits specified in comments.
-    Last update: 08-28-2015.
+    Last update: 10-14-2015.
 -}
 
 module Dummies
 (
     helloWorld,
+    oddsUptoN,
+    threeAsString,
+    readAList,
     tableOf,
     anotherTableOf,
     yetAnotherTableOf,
@@ -24,10 +27,17 @@ module Dummies
     transformFst
 )
 where
-import Data.Char (toUpper)
+import Data.Char (toUpper,toLower,toTitle)
 
 helloWorld :: IO ()
 helloWorld = putStrLn "Hello, World!"
+
+oddsUptoN :: Int -> [Int]
+oddsUptoN n = [ x | x<-[1..n] , odd x ]
+
+threeAsString = show 3
+
+readAList = read "[2,2,2]" ++ [1..10]
 
 tableOf :: Int -> [Int]
 tableOf n = map (*n) [1..10]
@@ -65,6 +75,18 @@ combinations n xs = [ xs !! i : x | i <- [0..(length xs)-1]
 {-
   $ = avoids curved brackets.
   E.g. sum $ filter (odd) [1..10] is equal to sum(filter (odd) [1..10])
+
+  Signature reading:
+
+  :: = has type of...
+  the => symbol is called a class constraint
+
+  In addition:
+  :: = type annotation, e.g. read "5" :: Int
+
+  The function works with "Equitable" objects A (such as int, chars, dates...)
+  It takes an A and a list of As and returns an Integer (the number of occurrencies)
+
 -}
 occurrences :: Eq a => a -> [a] -> Int
 occurrences element list = length $ filter (\x -> x == element) list
@@ -73,6 +95,16 @@ occurrences element list = length $ filter (\x -> x == element) list
    Credits: https://gist.github.com/ruthenium
    Transform first letter of 'String' using the function given.
    Will not work on 'Data.Text'.
+
+   transformFst input:
+        A function that takes a char and returns a char
+        A string
+   transformFst output:
+        A string
+
+   Simple usage:
+
+
 -}
 transformFst :: (Char -> Char) -> String -> String
 transformFst _ [] = []
