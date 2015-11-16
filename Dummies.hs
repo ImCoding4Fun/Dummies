@@ -17,6 +17,7 @@ module Dummies
     yetAnotherTableOf,
     factorial,
     anotherFactorial,
+    yetAnotherFactorial,
     quicksort,
     chain,
     combinations,
@@ -24,10 +25,12 @@ module Dummies
     split,
     toCamelCase,
     toUpper,
-    transformFst
+    invertCase,
+    transformFst,
+    bmiTell
 )
 where
-import Data.Char (toUpper,toLower,toTitle)
+import Data.Char (toUpper,toLower,isUpper,toTitle)
 
 helloWorld :: IO ()
 helloWorld = putStrLn "Hello, World!"
@@ -53,6 +56,13 @@ factorial n = product [1..n]
 
 anotherFactorial :: Integer -> Integer
 anotherFactorial n = foldl (\acc x -> acc * x) 1 [2..n]
+
+{-
+    Calculate factorial using pattern matching (recursive definition).
+-}
+yetAnotherFactorial :: (Integral a) => a -> a
+yetAnotherFactorial 0 = 1
+yetAnotherFactorial n = n * yetAnotherFactorial (n - 1)  
 
 quicksort :: (Ord a) => [a] -> [a]
 quicksort [] = []
@@ -166,6 +176,9 @@ Modad = computation builder
 -}
 doubleOdds = [1..10] >>= (\x -> if odd x then [x*2] else [])
 
+invertCase s = s >>= (\x -> if isUpper x then toLower x:"" else toUpper x:"")
+
+
 example :: [(Int, Int, Int)]
 example = do
   a <- [1,2]
@@ -173,3 +186,11 @@ example = do
   c <- [100,200]
   return (a,b,c)
 -- [(1,10,100),(1,10,200),(1,20,100),(1,20,200),(2,10,100),(2,10,200),(2,20,100),(2,20,200)]
+
+--Guards example
+bmiTell :: (RealFloat a) => a -> String  
+bmiTell bmi  
+    | bmi <= 18.5 = "You're underweight, you emo, you!"  
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"  
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"  
+    | otherwise   = "You're a whale, congratulations!"  

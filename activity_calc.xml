@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_marginLeft="10pt"
+        android:layout_marginRight="10pt"
+        android:layout_marginTop="3pt">
+
+        <EditText
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5pt"
+            android:id="@+id/number_0_edit"
+            android:layout_width="match_parent"
+            android:background="@drawable/default_style"
+            android:inputType="numberDecimal"></EditText>
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5pt"
+            android:id="@+id/number_1_edit"
+            android:layout_width="match_parent"
+            android:background="@drawable/default_style"
+            android:inputType="numberDecimal"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_marginTop="3pt"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="5pt">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="8pt"
+            android:id="@+id/addition_button"></Button>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="8pt"
+            android:id="@+id/subtraction_button"></Button>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="*"
+            android:textSize="8pt"
+            android:id="@+id/multiply_button"></Button>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="/"
+            android:textSize="8pt"
+            android:id="@+id/division_button"></Button>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3"
+        android:layout_marginTop="3pt"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="5pt">
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/exp_button"
+            android:textSize="8pt"
+            android:visibility="gone"
+            android:id="@+id/exp_button"></Button>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/average_button"
+            android:textSize="8pt"
+            android:visibility="gone"
+            android:id="@+id/average_button"></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_marginTop="3pt"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="5pt">
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/mode_button_scientific"
+            android:textSize="8pt"
+            android:id="@+id/mode_button"></Button>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancel_button"
+            android:textSize="8pt"
+            android:id="@+id/cancel_button"></Button>
+    </LinearLayout>
+
+    <TextView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="5pt"
+    android:layout_marginRight="5pt"
+    android:textSize="12pt"
+    android:layout_marginTop="3pt"
+    android:id="@+id/tvResult"
+    android:gravity="center_horizontal"
+    android:inputType = "numberDecimal"
+    android:background="@drawable/result_style">
+    </TextView>
+
+</LinearLayout>
