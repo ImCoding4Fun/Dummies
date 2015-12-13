@@ -1,4 +1,5 @@
 {-
+    --DEPRECATED--
     Author: A.F.G.
     Content: Haskell first dummies.
     Training purpose only. To be continued.
@@ -27,10 +28,21 @@ module Dummies
     toUpper,
     invertCase,
     transformFst,
-    bmiTell
+    bmiTell,
+    isPrime,
+    isPalindrome,
+    splitAt',
+    multiplyList,
+    ultimateTableOf,
+    removeOdd,
+    isNull
 )
 where
 import Data.Char (toUpper,toLower,isUpper,toTitle)
+
+isNull :: [t] -> Bool
+isNull [] = True
+isNull (x:xs) = False 
 
 helloWorld :: IO ()
 helloWorld = putStrLn "Hello, World!"
@@ -51,6 +63,30 @@ anotherTableOf n = map (\x -> x * n) [1..10]
 yetAnotherTableOf :: Int -> [Int]
 yetAnotherTableOf n = zipWith (*) [1..10] (repeat n)
 
+ultimateTableOf :: (Enum t, Num t) => t -> [t]
+ultimateTableOf n = multList [1..10] n
+
+{-
+	Multiplies each element of a list by the given number 'n'
+-}
+multiplyList :: Num t => [t] -> t -> [t]
+multiplyList [] n = []
+multiplyList (x: xs) n = (n *x) : (multiplyList xs n) 
+
+multList :: Num t => [t] -> t -> [t]
+multList list n = case list of
+    [] -> []
+    (x: xs) -> n * x : multList xs n
+
+guardsMultiplyList list n
+     | length list < 1 = []
+     | otherwise = (n * head list) :  guardsMultiplyList (tail list) n 
+
+removeOdd [] = []
+removeOdd (x: xs)
+    | mod x 2 == 0 = x : removeOdd xs
+    | otherwise    = removeOdd xs
+  
 factorial :: Integer -> Integer
 factorial n = product [1..n]
 
@@ -194,3 +230,21 @@ bmiTell bmi
     | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"  
     | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"  
     | otherwise   = "You're a whale, congratulations!"  
+
+isPrime :: Int -> Bool
+isPrime n
+    | n <= 1    = False
+    | otherwise = not $ any (\x -> n `mod` x == 0) [2,3..(n-1)]
+
+isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome x = x == reverse x
+
+splitAt' :: [a] -> Int -> ([a], [a])
+splitAt' xs n
+    | n < 0         = ([], xs)
+    | n > length xs = (xs, [])
+    | otherwise     = splitAt'' ([], xs) n 
+
+splitAt'' :: ([a], [a]) -> Int -> ([a], [a])
+splitAt'' (start, end) 0 = (start, end)
+splitAt'' (xs, (y:ys)) n = splitAt'' (xs ++ [y], ys) (n - 1)
