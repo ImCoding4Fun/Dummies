@@ -19,7 +19,11 @@ module ListDummies
     removeIf,
     combinations,
     quicksort,
-    doubleOdds
+    doubleOdds,
+    isEven,
+    removeOdd',
+    removeIf',
+    isFunctionFalse
 )
 where
 
@@ -67,12 +71,23 @@ removeOdd (x: xs)
     | mod x 2 == 0 = x : removeOdd xs
     | otherwise    = removeOdd xs
 
+{- partially applied functions -}
+isEven x = x `mod` 2 == 0
+
+removeOdd' = filter isEven 
+
 removeIf :: (t-> Bool) -> [t] -> [t]    
 removeIf f [] = []
 removeIf f (x: xs)
     | f x == True = x : removeIf f xs
     | otherwise = removeIf f xs
- 
+
+
+{- partially applied functions -}
+isFunctionFalse f x = f (x) == False
+
+removeIf' f x = filter (isFunctionFalse f) x
+
 {-
     n!/k!*(n-k)!
 -}   
