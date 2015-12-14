@@ -20,9 +20,8 @@ module StringDummies
     solveRPN
 )
 where
-import Data.Char (toUpper,toLower,isUpper)
+import Data.Char (toUpper,toLower,isUpper,toTitle)
 import Data.List
-
 replace source_ch dest_ch str =
     str >>= (\x -> if x==source_ch then dest_ch:"" else x:"")
     
