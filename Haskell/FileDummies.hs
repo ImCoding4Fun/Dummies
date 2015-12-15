@@ -10,7 +10,9 @@ module FileDummies
 (
     toUpperString,
     rdFile,
+    toHTML,
     toHTMLRow,
+    toHTMLCell,
     rdUpperFile,
     rdHTMLFile,
     cpFile
@@ -22,10 +24,17 @@ import Data.String.Utils (replace)
 toUpperString str = [ toUpper x | x<-str]
 
 --cabal.exe install MissingH
---FIXME: as is: just a single row...
-toHTMLRow str =  "<html><table><tr><td>" ++ replace "," "</td><td>" str ++ "</td><tr></html></table>"
+indent n str
+     | n == 0     = str
+     | otherwise  = "\t" ++ indent (n-1) str
 
-str >>= (\x -> if x==source_ch then dest_ch:"" else x:"")
+--let html_indents = zip [0..] ["<html>","<body>","<table>","<tr>","<td>"]
+--try zipWith             
+toPrettyHTML html_str = map (\x y -> ()) ([ fst(x), snd(x) | x<- zip [0..] ["<html>","<body>","<table>","<tr>","<td>"] ])
+
+toHTML str = "<html><body><table><tr><td>" ++ toHTMLRow str ++ "</td></tr></table></body></html>"
+toHTMLRow str =  replace "\n" "</td></tr>\n<tr><td>" (toHTMLCell str)
+toHTMLCell str = replace "," "</td><td>" str
 
 --Thanks to laziness, there's no difference between reading the file all at once and reading it line by line.
 rdFile file = do
@@ -49,4 +58,4 @@ cpFile file_in file_out = do
 --usage cpHTMLFile "C:\\vm\\foo.csv" "C:\\vm\\foo.html"
 cpHTMLFile csv_file html_file = do
                 contents <- readFile csv_file
-                writeFile html_file (toHTMLRow contents)
+                writeFile html_file (toHTML contents)
