@@ -30,11 +30,8 @@ indent n str
 
 --let html_indents = zip [0..] ["<html>","<body>","<table>","<tr>","<td>"]
 --try zipWith             
-toPrettyHTML html_str = map (\x y -> ()) ([ fst(x), snd(x) | x<- zip [0..] ["<html>","<body>","<table>","<tr>","<td>"] ])
+--toPrettyHTML html_str = map (\x y -> ()) ([ fst(x), snd(x) | x<- zip [0..] ["<html>","<body>","<table>","<tr>","<td>"] ])
 
-toHTML str = "<html><body><table><tr><td>" ++ toHTMLRow str ++ "</td></tr></table></body></html>"
-toHTMLRow str =  replace "\n" "</td></tr>\n<tr><td>" (toHTMLCell str)
-toHTMLCell str = replace "," "</td><td>" str
 
 --Thanks to laziness, there's no difference between reading the file all at once and reading it line by line.
 rdFile file = do
@@ -54,8 +51,17 @@ rdHTMLFile csv_file = do
 cpFile file_in file_out = do
                 contents <- readFile file_in
                 writeFile  file_out contents
-                
+
+head' = "<head><style>table {border-collapse: collapse;}table, td, th {border: 1px solid black;}</style></head>"
+toHTML str = "<html>"++head'++"<body><table border='1'><tr><td>" ++ toHTMLRow str ++ "</td></tr></table></body></html>"
+toHTMLRow str =  replace "\n" "</td></tr>\n<tr><td>" (toHTMLCell str)
+toHTMLCell str = replace "," "</td><td>" str
+
 --usage cpHTMLFile "C:\\vm\\foo.csv" "C:\\vm\\foo.html"
+--cpHTMLFile "C:\\vm\\DettaglioCartaCircolazioneVeicolo.txt" "C:\\vm\\DettaglioCartaCircolazioneVeicolo.html"
+--cpHTMLFile "C:\\vm\\DettaglioAutoveicoloComproprietari.txt" "C:\\vm\\DettaglioAutoveicoloComproprietari.html"
 cpHTMLFile csv_file html_file = do
                 contents <- readFile csv_file
                 writeFile html_file (toHTML contents)
+
+--indent_html str = map (\x y -> replace x y str) [y, indent x y | x<-[0..] , y<-["<html>","<body>","<table>","<tr>","<td>"]]
