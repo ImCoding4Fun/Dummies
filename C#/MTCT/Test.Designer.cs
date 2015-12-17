@@ -37,26 +37,36 @@
             // 
             // buttonRun
             // 
-            this.buttonRun.Location = new System.Drawing.Point(407, 29);
+            this.buttonRun.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonRun.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.buttonRun.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonRun.Location = new System.Drawing.Point(296, 0);
+            this.buttonRun.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Size = new System.Drawing.Size(281, 154);
+            this.buttonRun.Size = new System.Drawing.Size(203, 142);
             this.buttonRun.TabIndex = 0;
-            this.buttonRun.Text = "Run";
-            this.buttonRun.UseVisualStyleBackColor = true;
+            this.buttonRun.Text = "Chiama metodo";
+            this.buttonRun.UseVisualStyleBackColor = false;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
             // textBoxTarga
             // 
             this.textBoxTarga.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBoxTarga.Location = new System.Drawing.Point(95, 108);
+            this.textBoxTarga.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTarga.CausesValidation = false;
+            this.textBoxTarga.Enabled = false;
+            this.textBoxTarga.Location = new System.Drawing.Point(94, 91);
+            this.textBoxTarga.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxTarga.Name = "textBoxTarga";
-            this.textBoxTarga.Size = new System.Drawing.Size(287, 26);
+            this.textBoxTarga.Size = new System.Drawing.Size(158, 19);
             this.textBoxTarga.TabIndex = 2;
+            this.textBoxTarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelTarga
             // 
             this.labelTarga.AutoSize = true;
-            this.labelTarga.Location = new System.Drawing.Point(17, 114);
+            this.labelTarga.Location = new System.Drawing.Point(17, 90);
+            this.labelTarga.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTarga.Name = "labelTarga";
             this.labelTarga.Size = new System.Drawing.Size(50, 20);
             this.labelTarga.TabIndex = 3;
@@ -64,14 +74,15 @@
             // 
             // comboBoxMetodo
             // 
+            this.comboBoxMetodo.DropDownWidth = 80;
             this.comboBoxMetodo.FormattingEnabled = true;
             this.comboBoxMetodo.Items.AddRange(new object[] {
-            "",
-            "DettaglioCartaCicolazioneAutoveicolo",
-            "DettaglioAutoveicoloComproprietari"});
-            this.comboBoxMetodo.Location = new System.Drawing.Point(95, 29);
+            "Carta Circolazione",
+            "Comproprietari"});
+            this.comboBoxMetodo.Location = new System.Drawing.Point(94, 29);
+            this.comboBoxMetodo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxMetodo.Name = "comboBoxMetodo";
-            this.comboBoxMetodo.Size = new System.Drawing.Size(287, 28);
+            this.comboBoxMetodo.Size = new System.Drawing.Size(158, 28);
             this.comboBoxMetodo.TabIndex = 5;
             this.comboBoxMetodo.SelectedIndexChanged += new System.EventHandler(this.comboBoxMetodo_SelectedIndexChanged);
             // 
@@ -79,6 +90,7 @@
             // 
             this.labelMetodo.AutoSize = true;
             this.labelMetodo.Location = new System.Drawing.Point(17, 37);
+            this.labelMetodo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMetodo.Name = "labelMetodo";
             this.labelMetodo.Size = new System.Drawing.Size(63, 20);
             this.labelMetodo.TabIndex = 6;
@@ -88,14 +100,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 224);
+            this.ClientSize = new System.Drawing.Size(499, 142);
             this.Controls.Add(this.labelMetodo);
             this.Controls.Add(this.comboBoxMetodo);
             this.Controls.Add(this.labelTarga);
             this.Controls.Add(this.textBoxTarga);
             this.Controls.Add(this.buttonRun);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormMTCT_Test";
-            this.Text = "MTCT Service -- Test --";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Text = "MTCT Service";
             this.ResumeLayout(false);
             this.PerformLayout();
 

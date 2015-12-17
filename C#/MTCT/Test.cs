@@ -20,11 +20,12 @@ namespace MTCT_Test
         public FormMTCT_Test()
         {
             InitializeComponent();
+            comboBoxMetodo.SelectedIndex = 0;
         }
 
         private void comboBoxMetodo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string []targhe = {"", "AJ307EY", "AJ307EY" };
+            string []targhe = {"AJ307EY", "AJ307EY" };
             textBoxTarga.Text = targhe[comboBoxMetodo.SelectedIndex];
             textBoxTarga.Enabled = String.IsNullOrEmpty(textBoxTarga.Text);
         }
@@ -33,29 +34,37 @@ namespace MTCT_Test
         {
             MTCTServiceClient service = new MTCTService.MTCTServiceClient();
 
-            if (comboBoxMetodo.SelectedIndex > 0)
+            string result = "Nothing to show. An error occurred.";
+            string output_file = Consts.OutputFolder + "\\";
+            try
             {
-                string result = "";
-                string output_file = "";
-                if (comboBoxMetodo.SelectedIndex == 1)
+                output_file = Path.Combine(Consts.OutputFolder, Consts.OutputFiles[comboBoxMetodo.SelectedIndex]);
+                if (comboBoxMetodo.SelectedIndex == 0)
                 {
-                   DettaglioCartaCircolazioneVeicoloResponseType response = service.DettaglioCartaCicolazioneAutoveicolo(textBoxTarga.Text);
-
-                   result = response.asString();
-                   output_file = @"C:\vm\DettaglioCartaCircolazioneVeicolo.txt";
+                    DettaglioCartaCircolazioneVeicoloResponseType response = service.DettaglioCartaCicolazioneAutoveicolo(textBoxTarga.Text);
+                    result = response.asString();
                 }
-                else
+                if(comboBoxMetodo.SelectedIndex == 1)
                 {
                     DettaglioAutoveicoloComproprietariResponseType response = service.dettaglioAutoveicoloComproprietari(textBoxTarga.Text);
-                   
                     result = response.asString();
-                    output_file = @"C:\vm\DettaglioAutoveicoloComproprietari.txt";
                 }
+            }
+            catch (Exception ex)
+            {
+                result += Environment.NewLine + ex.Message;
+                if (ex is FaultException)
+                    result += string.Format("##For further information please contact:#{0}#{1}#Mobile: {2}", Consts.AdminName, Consts.AdminEmail, Consts.AdminMobile).Replace("#", ""+Environment.NewLine);
 
+                output_file = output_file.Replace(".txt", Consts.ErrorSuffix + ".txt");
+            }
+            finally
+            { 
                 File.WriteAllText(output_file, result);
                 Process.Start("notepad.exe", output_file);
             }
         }
+        
     }
 }
 ;

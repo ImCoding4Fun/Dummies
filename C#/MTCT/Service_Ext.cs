@@ -12,6 +12,9 @@ namespace MTCT_Test
 {
     public static class Service_Ext
     {
+        private static List<Type> rootTypes = new List<Type>() { typeof(String), typeof(Int32), typeof(DateTime) };
+        private static StringBuilder comproprietariMethodResult = new StringBuilder();
+
         public static string asString(this DettaglioCartaCircolazioneVeicoloResponseType response)
         {
             StringBuilder res = new StringBuilder();
@@ -23,11 +26,9 @@ namespace MTCT_Test
             return res.ToString();
         }
 
-        private static List<Type> rootTypes = new List<Type>() { typeof(String), typeof(Int32), typeof(DateTime) };
-
         public static string asString(this DettaglioAutoveicoloComproprietariResponseType response)
         {
-            myResult.Length = 0;
+            comproprietariMethodResult.Length = 0;
             foreach (var item in response.Items)
             {
                 DatiVeicoloComproprietariOutputType dV = ((DatiVeicoloComproprietariOutputType)((DettaglioVeicoloComproprietariOutputType)item).Items[0]);
@@ -36,29 +37,27 @@ namespace MTCT_Test
                 {
                     foreach (PropertyInfo rt_property in dV.GetType().GetProperties())
                     {
-                        myResult.AppendLine( rt_property.Name.asTitle(150) );
+                        comproprietariMethodResult.AppendLine( rt_property.Name.asTitle(150) );
                         var root_item = rt_property.GetValue(dV, null);
 
                         foreach (PropertyInfo l1_property in root_item.GetType().GetProperties())
                         {
                             var root_val = l1_property.GetValue(root_item, null);
-                            visitIt(root_val, l1_property.Name);
+                            visitObjTree(root_val, l1_property.Name);
                         }
                     }
                 }
             }
 
-            myResult.Length = myResult.Length - 1;
-            return myResult.ToString();
+            comproprietariMethodResult.Length = comproprietariMethodResult.Length - 1;
+            return comproprietariMethodResult.ToString();
         }
 
-        private static StringBuilder myResult = new StringBuilder();
-
-        public static void visitIt(this object v_root, string p_Name)
+        public static void visitObjTree(this object v_root, string p_Name)
         {
             if (v_root == null || rootTypes.Contains(v_root.GetType()))
             {
-                myResult.AppendLine(p_Name.asDescription().PadRight(64) + v_root.asSafeString());
+                comproprietariMethodResult.AppendLine(p_Name.asDescription().PadRight(64) + v_root.asSafeString());
                 return;
             }
             else
@@ -68,15 +67,16 @@ namespace MTCT_Test
                     var pp_value = pp.GetValue(v_root, null);
                     if (rootTypes.Contains(pp.PropertyType))
                     {
-                        myResult.AppendLine(pp.Name.asDescription().PadRight(64) + pp_value.asSafeString());
+                        comproprietariMethodResult.AppendLine(pp.Name.asDescription().PadRight(64) + pp_value.asSafeString());
                         return;
                     }
                     else
-                        visitIt(pp_value, pp.Name);
+                        visitObjTree(pp_value, pp.Name);
                 }
             }
         }
 
+        [Obsolete]
         public static void dummyWay(DettaglioAutoveicoloComproprietariResponseType response)
         {
             StringBuilder res = new StringBuilder();
@@ -156,6 +156,12 @@ namespace MTCT_Test
             return o == null? "N/A" : o.ToString();
         }
 
+        /// <summary>
+        /// Converts a property Name to a Property Description
+        /// A mixed case string containing no whitespaces is converted to a sentence.
+        /// </summary>
+        /// <param name="propertyName">Property Name</param>
+        /// <returns>e.g.:  MinimumTemperatureThreshold =>  "Minimum Temperature Threshold"</returns>
         public static string asDescription(this String propertyName)
         {
             //CO2, NOX bug...
@@ -185,18 +191,23 @@ namespace MTCT_Test
                     else
                         ret += c;
                 }
-
                 i++;
             }
             
             return ret;
         }
 
-        public static string asTitle(this string property, int padlenght)
+        /// <summary>
+        /// Converts a property description to a TITLE string
+        /// </summary>
+        /// <param name="propertyDescription">Property description</param>
+        /// <param name="padlenght">Number of underscore chars to pad left and right to the property name.</param>
+        /// <returns>e.g.: "________Property Name________"</returns>
+        public static string asTitle(this string propertyDescription, int padlenght)
         {
-            int spaces = padlenght - property.Length;
-            int padLeft = spaces / 2 + property.Length;
-            return property.asDescription().PadLeft(padLeft,'_').PadRight(padlenght, '_');
+            int spaces = padlenght - propertyDescription.Length;
+            int padLeft = spaces / 2 + propertyDescription.Length;
+            return propertyDescription.asDescription().PadLeft(padLeft,'_').PadRight(padlenght, '_');
         }
 
     }
