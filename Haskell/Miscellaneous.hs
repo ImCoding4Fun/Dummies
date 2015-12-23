@@ -57,4 +57,10 @@ splitAt' n xs
 
 splitAt'' :: Int -> ([a], [a]) -> ([a], [a])
 splitAt'' 0 (start, end)  = (start, end)
-splitAt'' n (xs, (y:ys))  = splitAt'' (n - 1) (xs ++ [y], ys) 
+splitAt'' n (xs, (y:ys))  = splitAt'' (n - 1) (xs ++ [y], ys)
+
+dollar_sign_partially_applied = zipWith ($) [(*44), (*5), (^3), (+55), (mod 5)] [1..10]
+
+fst' triplet  = head $ map (\(a, b, c) -> a) triplet
+snd' triplet  = head $ map (\(a, b, c) -> b) triplet 
+lst  triplet  = head $ map (\(a, b, c) -> c) triplet

@@ -26,7 +26,7 @@ module ListDummies
     isFunctionFalse
 )
 where
-
+import Data.List
 isNullList :: [t] -> Bool
 isNullList [] = True
 isNullList (x:xs) = False
@@ -107,3 +107,8 @@ quicksort (x:xs) =
 Modad = computation builder
 -}
 doubleOdds = [1..10] >>= (\x -> if odd x then [x*2] else [])
+
+haystack=["Zig","Zag","Wally","Ronald","Bush","Krusty","Charlie","Bush","Bozo"]
+needles = ["Washington","Bush"]
+
+--map (\x -> (x,elemIndices x haystack)) needles
