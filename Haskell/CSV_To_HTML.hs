@@ -1,6 +1,7 @@
 import Data.String.Utils (replace)
 import Data.List (elemIndex)
 import Data.Maybe
+import System.Environment (getArgs)
 
 html_head = "<head><style>table {border-collapse: collapse;}table, td, th {border: 1px solid black;}</style></head>"
 html_cell s = replace "," "</td><td>" s
@@ -35,3 +36,9 @@ pretty_html s i
 csv_to_pretty_html csv_file html_file = do
                 c <- readFile csv_file
                 writeFile html_file (pretty_html (html c) (length tags -1))
+
+--compile it: gch "source file path"
+--usage on command line: CSV_To_HTML "csv file path" "html file path"
+main = do
+       args <- getArgs
+       csv_to_pretty_html (args!!0) (args!!1)
