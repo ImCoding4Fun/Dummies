@@ -38,7 +38,7 @@ csv_to_pretty_html csv_file html_file = do
                 writeFile html_file (pretty_html (html c) (length tags -1))
 
 --compile it: gch "source file path"
---usage on command line: CSV_To_HTML "csv file path" "html file path"
+--usage on command line: CSV_To_HTML "C:\\vm\\foo.csv" "C:\\vm\\foo.html"
 main = do
        args <- getArgs
        csv_to_pretty_html (args!!0) (args!!1)
