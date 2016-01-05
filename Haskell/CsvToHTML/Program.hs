@@ -1,10 +1,9 @@
-module FileConverter
+module Program
 where
 
 import Data.String.Utils (replace)
 import Data.List (elemIndex)
 import Data.Maybe
-import System.Environment (getArgs)
 
 htmlHead = "<head><style>table {border-collapse: collapse;}table, td, th {border: 1px solid black;}</style></head>"
 
@@ -43,12 +42,13 @@ csvToPrettyHtml csv_file html_file = do
                 c <- readFile csv_file
                 writeFile html_file $ prettyHtml (html c) (length tags -1)
 
---compile it: gch "source file path"
---usage on command line: run "C:\\vm\\foo.csv" "C:\\vm\\foo.html"
-
-run = do
+--compile it:            gch Program.hs
+--usage on command line: Program "C:\\vm\\foo.csv" "C:\\vm\\foo.html"
+{-
+main = do
        args <- getArgs
        putStrLn $ "Input : " ++ head args
        exec <- csvToPrettyHtml (head args) (args!!1)
        putStrLn $ "Output : " ++ (args!!1)
        putStrLn "HTML File generation compled"
+-}

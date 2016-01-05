@@ -16,7 +16,7 @@ module Main (
     main
 ) where
 
-import FileConverter
+import Program
 
 main = do
         let args = ["C:\\vm\\foo.csv","C:\\vm\\foo.html"]
