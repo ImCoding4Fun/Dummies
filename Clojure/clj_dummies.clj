@@ -67,8 +67,6 @@
     year)
 )
 
-(this-year)
-
 (defn next-xmas []
 (.. (SimpleDateFormat. "yyyy-MM-dd HH:mm")
     (parse (str (this-year)"-12-25 00:00:00"))))
