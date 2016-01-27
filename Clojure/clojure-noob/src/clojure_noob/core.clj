@@ -1,42 +1,33 @@
-;SqlServer DB Info.
-;SELECT  
-;   CONNECTIONPROPERTY('net_transport') AS net_transport,
-;   CONNECTIONPROPERTY('protocol_type') AS protocol_type,
-;   CONNECTIONPROPERTY('auth_scheme') AS auth_scheme,
-;   CONNECTIONPROPERTY('local_net_address') AS local_net_address,
-;   CONNECTIONPROPERTY('local_tcp_port') AS local_tcp_port,
-;   CONNECTIONPROPERTY('client_net_address') AS client_net_address 
+; sql server auth: 
+; :subname "//server-name:port;database=database-name;user=sql-authentication-user-name;password=password"
+	;SELECT  
+	;   CONNECTIONPROPERTY('local_net_address') AS server_name,
+	;   CONNECTIONPROPERTY('local_tcp_port') AS port
+
+;windows auth: 
+; copy Microsoft SQL Server JDBC Driver 3.0\sqljdbc_3.0\enu\auth\x64\sqljdbc_auth.dll to C:\Windows\System32
+; :subname "//127.0.0.1:port;database=AdventureWorks2014;integratedSecurity=true"
+; How to get "port": Open Windows configuration manager (Or Task Manager, "Services" tab) and check the process id (PID) of SQLEXPRESS service.
+; Run "netstat -ano" from a command or powershell console and check the port number corresponding to the above-mentioned PID.
 
 (ns clojure-noob.core
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc])
+  (:require [clojure.string :as string]))
 
 (def db-spec {:classname "com.microsoft.jdbc.sqlserver.SQLServerDriver"
 			  :subprotocol "sqlserver"
-              :subname "//xxx.xx.xx.xxx:xxx;database=xxxx;user=xx;password=xxxxxx"
+              ;:subname "//172.20.99.243:1217;database=PlugAndReport;user=sa;password=123456"  ;sql server auth.
+              :subname "//127.0.0.1:60745;database=AdventureWorks2014;integratedSecurity=true" ;windows auth.
         })
 
 (defn -main
   []
-    (println "\n\n")
-	(
+    (
 	  jdbc/with-db-connection [connection db-spec]
 	  
-	  ; query-1
 	  (let [rows (jdbc/query connection
-	                         ["select top 10 * from sys.tables"])]
-	    (doseq [row rows] (println (:name row) )))
-	  (println "\n\n")
-	  
-	  ; query-2
-	  (let [rows (jdbc/query connection
-	                         ["select * from PR_Version"])]
-	    (doseq [row rows] (println row )))
-	  (println "\n\n")
-	  
-	  ; query-3
-	  (let [rows (jdbc/query connection
-	                         ["select * from PR_Version"])]
-	    (doseq [row rows] (println (:id row) )))
-	 )
+	                         ["select CountryRegionCode, Name from Person.CountryRegion"])]
+	    (doseq [row rows]  (println (:countryregioncode row) "\t" (string/upper-case (:name row)) ))	
+	  )
+    )
 )
-
