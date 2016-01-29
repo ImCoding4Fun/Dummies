@@ -38,7 +38,7 @@ namespace LispTest
         {
             string formattedExpr = "(- (* 3 3)9)".format();
             decimal result = LispExpression.Eval(formattedExpr);
-            Assert.IsTrue(formattedExpr == "(- (* 3 3) 9)" && result == 0);
+            Assert.IsTrue(result == 0);
         }
         
         [TestMethod]
@@ -46,7 +46,7 @@ namespace LispTest
         {
             string formattedExpr = " (  * (   * (-(+     4 4 ) 4) 2   )   3   ) ".format();
             decimal result = LispExpression.Eval(formattedExpr);
-            Assert.IsTrue(formattedExpr == "(* (* (- (+ 4 4) 4) 2) 3)" && result == 24);
+            Assert.IsTrue(result == 24);
         }
 
         [TestMethod]
@@ -54,7 +54,32 @@ namespace LispTest
         {
             string formattedExpr = "(*(*(-(+4 4)4)2)3   ) ".format();
             decimal result = LispExpression.Eval(formattedExpr);
-            Assert.IsTrue(formattedExpr == "(* (* (- (+ 4 4) 4) 2) 3)" && result == 24);
+            Assert.IsTrue(result == 24);
         }
+
+        [TestMethod]
+        public void EvalWellFormattedGrade2Left()
+        {
+            string formattedExpr = "(* 2 (+ 1 1) )".format();
+            decimal result = LispExpression.Eval(formattedExpr);
+            Assert.IsTrue(result == 4);
+        }
+
+        [TestMethod]
+        public void EvalBadFormattedGrade2Left()
+        {
+            string formattedExpr = "(*2(+ 1 1) )".format();
+            decimal result = LispExpression.Eval(formattedExpr);
+            Assert.IsTrue(result == 4);
+        }
+
+        [TestMethod]
+        public void FixMe()
+        {
+            string formattedExpr = "(+ (* 4 4) (- 3 3))".format();
+            decimal result = LispExpression.Eval(formattedExpr);
+            Assert.IsTrue(result == 4);
+        }
+        
     }
 }
