@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+	<title>Htmlifyer</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="htmlify - 2.0.js"></script>
+
+	<script type="text/javascript">
+
+   	$(document).ready( function() {
+
+			$("#text_id").text("TEST TEST TEST\n\nwww.google.it\n\nmario.rossi@europeassistance.com\nANCORA TEST lowercase");
+			$("#html_id").html( "#text_id".toHtml() );
+			$("#text_id").hide()
+
+			$("#run_btn_id").click( function()
+			{
+				var _this = $(this)
+
+				if(_this.text() == 'Edit')
+				{
+					_this.text('Save')
+
+					$("#text_id").show()
+					$("#html_id").hide()
+				}
+				else
+				{
+					_this.text('Edit')
+
+					$("#text_id").hide()
+					$("#html_id").html( "#text_id".toHtml() );
+					$("#html_id").show()
+				}
+			})
+		})
+ 	</script>
+</head>
+<body>
+      <div style="width: 100%;overflow:hidden;">
+        <div style="width: 600px;float: left;">
+            <textarea id="text_id" style="width:100%;height:100%;display:none" rows="25">
+            </textarea>
+            <div id="html_id">
+            </div>
+        </div>
+
+        <div style="margin-left: 620px;">
+          <button id="run_btn_id">Edit</button>
+        </div>
+
+      </div>
+</body>
+</html>

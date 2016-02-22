@@ -1,0 +1,3 @@
+﻿1. Introduce Nullary and Unary operators.
+2. Introduce more n-ary operatiors (where n >=2).
+3. Process valid but untrimmed lisp expressions as well.
