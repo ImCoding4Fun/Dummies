@@ -1,0 +1,13 @@
+{
+"response":
+[
+    {   "id":"Q1",
+        "question":"You are developing an HTML5 web application and are styling text. You need to use the texttransform CSS property.<br/>Which value is valid for the text-transform property?",
+        "answer":"Lowercase"
+    },
+    {   "id":"Q2",
+        "question":"What is the answer to the ultimate question of Life, The Universe, and Everything?",
+        "answer":"42"
+    }
+]
+}
