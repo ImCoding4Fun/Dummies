@@ -2,12 +2,13 @@ $( document ).ready(function() {
     //set up a local web server before calling this...
     $.getJSON("70480.json", function(json) {
     	var html = "";
-    	for(var i=0;i<json.response.length;i++)
+    	
+    	for(var field in json.response)
     	{
-    		html +=  "<p id='"+json.response[i].id.toLowerCase()+"'>"+json.response[i].id+"<br/>"+json.response[i].question+"</p>";
+    		html +=  "<p id='"+json.response[field].id.toLowerCase()+"'>"+json.response[field].id+"<br/>"+json.response[field].question+"</p>";
     		html +=  "<span id=s"+i+">Check</span> | <span id=sa"+i+">Show/hide answer</span>";
     		html +=  " <input type='text' id=a"+i+"></input>";
-			html +=  " <input id=ca"+i+" type='hidden' value='"+json.response[i].answer+"'></input>";
+			html +=  " <input id=ca"+i+" type='hidden' value='"+json.response[field].answer+"'></input>";
     		$("body").append(html);
     		html = "";
     	}
