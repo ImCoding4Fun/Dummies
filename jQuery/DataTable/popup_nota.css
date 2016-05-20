@@ -1,0 +1,27 @@
+﻿.evidenzia_nota{
+    display:none;
+    align-content:flex-end;
+    margin-left: 1px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    /*font:normal bolder 12pt courier;*/
+}
+
+.testo_nota {
+    font:normal bolder 12pt courier; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.testo_nota_html {
+    font:normal bolder 11pt courier; 
+    height: 100%;
+    width: 780px; /*TODO: to resize avec IE11 migration */
+    display:inline-flex;
+    text-overflow: inherit;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: auto;
+    background: #FFFFFF;
+}

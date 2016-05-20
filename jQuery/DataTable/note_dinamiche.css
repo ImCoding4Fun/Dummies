@@ -1,0 +1,123 @@
+﻿body {
+    background-color: rgb(230, 229, 235);
+}
+
+/* Tooltip for: Sigla Ins., Sigla Agg., Testo Nota */
+.hasTooltip {
+    display: block;
+    position: initial;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    margin: 0px 0px;
+    color:black;
+    min-width:inherit;
+    overflow:visible;
+}
+
+.noTooltip, #note_cmd, #note_div {
+    display: none;
+}
+
+.imgCommandNote{
+    width: 2%;
+    align-content:flex-start;
+}
+
+#note_div{
+    font-family: verdana;
+    text-align: left;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(230, 229, 235);
+}
+
+#note_div table{
+    overflow: scroll; 
+    max-height: 550px;
+}
+
+#note_div table thead {
+    height: 8pt;
+    font-size: 8pt;
+}
+
+#note_div table tbody{
+    font-size: 7pt;
+    text-transform: uppercase;
+}
+
+#tbl_note_dinamiche tr{
+    line-height: 14px; /* iFrameTab.height = 230px */
+    cursor:pointer;
+}
+
+/* Evidenza note di GM, TS e TA (se flaggata la checkbox predisposta) */
+.evidenzia_guardia_medica{
+    color:red;
+    border-collapse: separate;
+}
+
+.evidenzia_team_supervisor{
+   color:green;
+   border-collapse: separate;
+}
+
+.evidenzia_team_assistant {
+    color:green;
+    border-collapse: separate;
+}
+ 
+/*Full number pagination along with jQuery UI */
+.paging_full_numbers .ui-button {
+    padding: 2px 6px;
+    margin: 0;
+    cursor: pointer;
+    * cursor: hand;
+}
+
+/* Note dinamiche loading dialog box. */
+.ui-dialog-osx {
+    -moz-border-radius: 0 0 8px 8px;
+    -webkit-border-radius: 0 0 8px 8px;
+    border-radius: 0 0 8px 8px; border-width: 0 8px 8px 8px;
+}
+
+#dialog-message {
+    margin-left: 23px;
+    margin-top: 20px;
+}
+
+.ui-widget-overlay
+{
+    background-color: #000000;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+}
+
+.ui-dialog
+{
+    background-color: #FFFFFF;
+    border: 1px solid #505050;
+    position: absolute;
+    overflow: hidden;
+}
+
+.testo_nota_column{
+    display:inline-block;
+    white-space: nowrap;
+    overflow:hidden;
+    max-width:12em;
+    text-overflow: ellipsis;
+}
+
+.tbl_note_ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+}
+
+.tbl_note_ellipsis.multiline {
+        white-space:normal;
+        height:14px;
+}

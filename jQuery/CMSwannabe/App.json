@@ -1,0 +1,11 @@
+{
+	"AppName": "Top And Flop",
+	"TemplateFile": "TF_Template.html",
+	"NavMenu": [{
+		"DisplayItem": "Movies"
+	}, {
+		"DisplayItem": "Sings"
+	}, {
+		"DisplayItem": "Football Teams"
+	}]
+}

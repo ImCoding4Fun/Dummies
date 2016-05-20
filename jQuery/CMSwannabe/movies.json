@@ -1,0 +1,30 @@
+{
+    "BestLabel" : "Best movies ever",
+    "WorstLabel" : "Worst movies ever",
+    "Best": [{
+        "Name": "My 1st best movie",
+        "Plot": "This is the 1st best movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    }, {
+        "Name": "My 2nd best movie",
+         "Plot": "This is the 2nd best movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    },{
+        "Name": "My 3rd best movie",
+        "Plot": "This is the 3rd best movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    }],
+    "Worst": [{
+        "Name": "My 1st worst movie",
+        "Plot": "This is the 1st worst movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    }, {
+        "Name": "My 2nd worst movie",
+         "Plot": "This is the 2nd worst movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    },{
+        "Name": "My 3rd worst movie",
+         "Plot": "This is the 3rd worst movie plot: Once upon a time...",
+        "Image": "http://i.imgur.com/PURgCqt.jpg"
+    }]
+}
