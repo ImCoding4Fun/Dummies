@@ -1,14 +1,18 @@
 ﻿import { Table } from "./table";
+import { Input } from "@angular/core";
 export class Pagination<T extends Table> {
-    list: T[];
-    filteredItems: T[];
+
+    list: T[] = [];
+    filteredItems: T[] = [];
     pages: number = 4;
-    pageSize: number;
+    pageSize: number = 5;
     pageNumber: number = 0;
     currentIndex: number = 1;
-    items: T[];
-    pagesIndex: Array<number>;
+    items: T[] = [];
+    pagesIndex: Array<number> = [];
     pageStart: number = 1;
+
+    @Input()
     inputName: string = '';
 
     constructor() { };
@@ -38,6 +42,7 @@ export class Pagination<T extends Table> {
     }
 
     FilterByName() {
+        
         this.filteredItems = [];
         if (this.inputName != "") {
             this.list.forEach(element => {

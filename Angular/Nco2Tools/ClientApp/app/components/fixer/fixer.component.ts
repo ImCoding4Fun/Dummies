@@ -17,7 +17,7 @@ export class FixerComponent extends Pagination<Rate> implements OnInit {
     private _http: Http;
     private _baseUrl: string;
     public amount: number = 10;
-    public rates: Rate[];
+    public rates: Rate[] = [];
 
     //public baseCurrencies: Array<string> = ['EUR', 'USD', 'CHF'];
     public selectedCurrency: string = 'EUR';

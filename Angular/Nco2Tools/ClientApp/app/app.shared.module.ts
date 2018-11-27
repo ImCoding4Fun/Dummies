@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { FixerComponent } from './components/fixer/fixer.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { GfsrComponent } from './components/gfsr/gfsr.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { CounterComponent } from './components/counter/counter.component';
         CounterComponent,
         FetchDataComponent,
         FixerComponent,
-        HomeComponent
+        HomeComponent,
+        GfsrComponent
     ],
     imports: [
         CommonModule,
@@ -30,6 +32,7 @@ import { CounterComponent } from './components/counter/counter.component';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'fixer', component: FixerComponent },
+            { path: 'gfsr', component: GfsrComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
